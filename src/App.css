@@ -1,0 +1,8 @@
+/* C5 练习系统自定义样式（布局由 Tailwind 控制） */
+#root {
+  height: 100vh;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+}
