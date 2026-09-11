@@ -1,17 +1,18 @@
 import { useState } from 'react'
 import { CATS, subsOf, countOf, QUESTIONS } from '../data'
-import { ClipboardList, ChevronDown, ChevronRight, Timer, BookOpen } from 'lucide-react'
+import { ClipboardList, ChevronDown, ChevronRight, Timer, BookOpen, Info } from 'lucide-react'
 
 interface Props {
-  mode: 'practice' | 'exam'
+  mode: 'practice' | 'exam' | 'intro'
   selCat: string | null
   selSub: string | null
   onPick: (cat: string | null, sub: string | null) => void
+  onShowIntro: () => void
   onStartExam: () => void
   examActive: boolean
 }
 
-export default function QuizSidebar({ mode, selCat, selSub, onPick, onStartExam, examActive }: Props) {
+export default function QuizSidebar({ mode, selCat, selSub, onPick, onShowIntro, onStartExam, examActive }: Props) {
   const [open, setOpen] = useState<Record<string, boolean>>({ 科学常识: true, 基础探究方法: true, 逻辑思维基础: true })
 
   const itemCls = (active: boolean) =>
@@ -27,6 +28,10 @@ export default function QuizSidebar({ mode, selCat, selSub, onPick, onStartExam,
       </div>
 
       <nav className="flex-1 px-3 py-3 space-y-1">
+        <button className={itemCls(mode === 'intro')} onClick={onShowIntro}>
+          <span className="flex items-center gap-2"><Info size={14} />赛前须知 · 考试入口</span>
+        </button>
+
         <button className={itemCls(mode === 'practice' && !selCat && !selSub)} onClick={() => onPick(null, null)}>
           <span className="flex items-center gap-2"><BookOpen size={14} />全部题目</span>
           <span className="text-xs opacity-70">{QUESTIONS.length}</span>

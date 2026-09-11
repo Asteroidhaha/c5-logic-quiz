@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { LETTERS, DIFF_STYLE, CAT_COLOR, type Question, type Letter } from '../data'
 import { CheckCircle2, XCircle, ArrowLeft, ArrowRight, Lightbulb } from 'lucide-react'
+import SpeakButton, { questionToSpeech } from './SpeakButton'
 
 interface Props {
   title: string
@@ -57,6 +58,7 @@ export default function PracticeQuiz({ title, questions, shuffleKey, onShuffle }
             <span className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${CAT_COLOR[q.cat]}`}>{q.cat}</span>
             <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{q.sub}</span>
             <span className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${DIFF_STYLE[q.diff]}`}>{q.diff}</span>
+            <SpeakButton text={questionToSpeech(q.stem, q.options, idx + 1)} className="ml-auto" />
           </div>
           <h2 className="text-lg font-semibold text-slate-800 leading-relaxed">{q.stem}</h2>
         </div>

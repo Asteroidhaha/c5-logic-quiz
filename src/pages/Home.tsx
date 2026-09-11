@@ -2,12 +2,13 @@ import { useMemo, useState } from 'react'
 import QuizSidebar from '../components/QuizSidebar'
 import PracticeQuiz from '../components/PracticeQuiz'
 import ExamQuiz from '../components/ExamQuiz'
+import IntroPage from '../components/IntroPage'
 import { filterQuestions, drawExam, shuffle, QUESTIONS, type Question } from '../data'
 import { GraduationCap, User } from 'lucide-react'
 import '../App.css'
 
 export default function Home() {
-  const [mode, setMode] = useState<'practice' | 'exam'>('practice')
+  const [mode, setMode] = useState<'practice' | 'exam' | 'intro'>('intro')
   const [selCat, setSelCat] = useState<string | null>(null)
   const [selSub, setSelSub] = useState<string | null>(null)
   const [examQs, setExamQs] = useState<Question[]>([])
@@ -55,12 +56,15 @@ export default function Home() {
           selCat={selCat}
           selSub={selSub}
           onPick={pick}
+          onShowIntro={() => setMode('intro')}
           onStartExam={startExam}
           examActive={false}
         />
 
         <main className="flex-1 overflow-y-auto">
-          {mode === 'practice' ? (
+          {mode === 'intro' ? (
+            <IntroPage />
+          ) : mode === 'practice' ? (
             <PracticeQuiz
               title={title}
               questions={practiceList}
