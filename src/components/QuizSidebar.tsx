@@ -72,7 +72,7 @@ export default function QuizSidebar({ mode, selCat, selSub, onPick, onStartExam,
           {mode === 'exam' ? '重新生成模拟卷' : '生成模拟卷（随机20题）'}
         </button>
         <div className="mt-2 flex items-center gap-1.5 text-[11px] text-slate-400">
-          <Timer size={12} /> 20 题 · 每题 5 分 · 限时 20 分钟
+          <Timer size={12} /> 20 题 · 每题 5 分 · 限时 60 分钟（与正式初赛一致）
         </div>
       </div>
     </aside>

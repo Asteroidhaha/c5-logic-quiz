@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { LETTERS, CAT_COLOR, DIFF_STYLE, type Question, type Letter } from '../data'
 import { Timer, AlertTriangle, Trophy, RotateCcw, CheckCircle2, XCircle } from 'lucide-react'
 
-const EXAM_SECONDS = 20 * 60
+const EXAM_SECONDS = 60 * 60
 
 interface Props {
   questions: Question[]
