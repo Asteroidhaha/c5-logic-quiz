@@ -4,6 +4,7 @@ import PracticeQuiz from '../components/PracticeQuiz'
 import ExamQuiz from '../components/ExamQuiz'
 import IntroPage from '../components/IntroPage'
 import { filterQuestions, drawExam, shuffle, QUESTIONS, type Question } from '../data'
+import { useRecords, wrongIds } from '../store'
 import { GraduationCap, User } from 'lucide-react'
 import '../App.css'
 
@@ -11,15 +12,21 @@ export default function Home() {
   const [mode, setMode] = useState<'practice' | 'exam' | 'intro'>('intro')
   const [selCat, setSelCat] = useState<string | null>(null)
   const [selSub, setSelSub] = useState<string | null>(null)
+  const [selWrong, setSelWrong] = useState(false)
   const [examQs, setExamQs] = useState<Question[]>([])
   const [examRound, setExamRound] = useState(0)
   const [shuffleKey, setShuffleKey] = useState(0)
   const [shuffled, setShuffled] = useState<Question[] | null>(null)
+  const records = useRecords()
 
-  const baseList = useMemo(() => filterQuestions(selCat, selSub), [selCat, selSub])
+  const wrongList = useMemo(
+    () => wrongIds().map(id => QUESTIONS.find(q => q.id === id)!).filter(Boolean),
+    [records],
+  )
+  const baseList = useMemo(() => (selWrong ? wrongList : filterQuestions(selCat, selSub)), [selWrong, wrongList, selCat, selSub])
   const practiceList = shuffled && shuffleKey > 0 ? shuffled : baseList
 
-  const title = selSub ?? selCat ?? '全部题目'
+  const title = selWrong ? '错题本' : selSub ?? selCat ?? '全部题目'
 
   function startExam() {
     setExamQs(drawExam())
@@ -30,6 +37,16 @@ export default function Home() {
   function pick(cat: string | null, sub: string | null) {
     setSelCat(cat)
     setSelSub(sub)
+    setSelWrong(false)
+    setShuffled(null)
+    setShuffleKey(0)
+    setMode('practice')
+  }
+
+  function pickWrong() {
+    setSelCat(null)
+    setSelSub(null)
+    setSelWrong(true)
     setShuffled(null)
     setShuffleKey(0)
     setMode('practice')
@@ -55,7 +72,9 @@ export default function Home() {
           mode={mode}
           selCat={selCat}
           selSub={selSub}
+          selWrong={selWrong}
           onPick={pick}
+          onPickWrong={pickWrong}
           onShowIntro={() => setMode('intro')}
           onStartExam={startExam}
           examActive={false}
@@ -69,6 +88,7 @@ export default function Home() {
               title={title}
               questions={practiceList}
               shuffleKey={shuffleKey}
+              isWrongBook={selWrong}
               onShuffle={() => {
                 setShuffled(shuffle(baseList))
                 setShuffleKey(k => k + 1)

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { LETTERS, CAT_COLOR, DIFF_STYLE, type Question, type Letter } from '../data'
 import { Timer, AlertTriangle, Trophy, RotateCcw, CheckCircle2, XCircle } from 'lucide-react'
 import SpeakButton, { questionToSpeech } from './SpeakButton'
+import { markResult } from '../store'
 
 const EXAM_SECONDS = 60 * 60
 
@@ -35,6 +36,8 @@ export default function ExamQuiz({ questions, onExit, onRestart }: Props) {
 
   function submit() {
     if (timer.current) clearInterval(timer.current)
+    // 交卷即存档：每题对错写入刷题记录（未作答记为答错）
+    questions.forEach(x => markResult(x.id, answers[x.id] === x.answer))
     setSubmitted(true)
     setConfirming(false)
   }
