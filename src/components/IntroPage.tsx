@@ -25,29 +25,29 @@ const RULES = [
 
 export default function IntroPage() {
   return (
-    <div className="max-w-3xl mx-auto px-6 py-8 space-y-5">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-5">
       {/* 正式考试入口 */}
       <a
         href="https://signup.simcc.net.cn/dashboard"
         target="_blank"
         rel="noreferrer"
-        className="block bg-gradient-to-r from-[#0f2a4a] to-[#1a4a7a] rounded-xl p-6 text-white shadow-md hover:shadow-lg transition-shadow"
+        className="block bg-gradient-to-r from-[#0f2a4a] to-[#1a4a7a] rounded-xl p-4 sm:p-6 text-white shadow-md hover:shadow-lg transition-shadow"
       >
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
             <div className="text-[11px] tracking-widest text-sky-300 font-semibold mb-1">OFFICIAL PORTAL</div>
-            <div className="text-xl font-bold">正式考试入口：大赛报名测评平台</div>
-            <div className="mt-1.5 text-sm text-sky-200/90 flex items-center gap-1.5">
-              <MousePointerClick size={14} />
-              登录 signup.simcc.net.cn → 赛事足迹 → 点击「参加测评」
+            <div className="text-lg sm:text-xl font-bold leading-snug">正式考试入口：大赛报名测评平台</div>
+            <div className="mt-1.5 text-xs sm:text-sm text-sky-200/90 flex items-start gap-1.5">
+              <MousePointerClick size={14} className="shrink-0 mt-0.5" />
+              <span>登录 signup.simcc.net.cn → 赛事足迹 → 点击「参加测评」</span>
             </div>
           </div>
-          <ExternalLink size={28} className="text-sky-300 shrink-0" />
+          <ExternalLink size={28} className="text-sky-300 shrink-0 hidden sm:block" />
         </div>
       </a>
 
       {/* 考试安排 */}
-      <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+      <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6">
         <h2 className="flex items-center gap-2 text-base font-bold text-slate-800 mb-4">
           <CalendarClock size={18} className="text-blue-600" /> 初赛时间安排
         </h2>
@@ -77,7 +77,7 @@ export default function IntroPage() {
       </section>
 
       {/* 考试规则 */}
-      <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+      <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6">
         <h2 className="flex items-center gap-2 text-base font-bold text-slate-800 mb-4">
           <MonitorCheck size={18} className="text-blue-600" /> 初赛规则
         </h2>
@@ -88,16 +88,16 @@ export default function IntroPage() {
             ['60 分钟', '统一答题时长，自动阅卷'],
             ['达标制', '达合格线即晋级，不设淘汰比例'],
           ].map(([k, v]) => (
-            <div key={k} className="rounded-lg bg-slate-50 border border-slate-100 px-3 py-4">
+            <div key={k} className="rounded-lg bg-slate-50 border border-slate-100 px-2 sm:px-3 py-4">
               <div className="text-xl font-black text-blue-700">{k}</div>
-              <div className="mt-1 text-xs text-slate-500">{v}</div>
+              <div className="mt-1 text-xs text-slate-500 leading-relaxed">{v}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* 注意事项 */}
-      <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+      <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 sm:p-6">
         <h2 className="flex items-center gap-2 text-base font-bold text-slate-800 mb-3">
           <ShieldCheck size={18} className="text-amber-500" /> 测评注意事项（官方）
         </h2>
@@ -112,7 +112,7 @@ export default function IntroPage() {
         <h3 className="text-sm font-bold text-slate-700 mt-5 mb-2">诚信参赛要求</h3>
         <ul className="space-y-1.5">
           {RULES.map((r, i) => (
-            <li key={i} className="flex gap-2 text-sm text-slate-600">
+            <li key={i} className="flex gap-2 text-sm text-slate-600 leading-relaxed">
               <span className="text-rose-400 shrink-0">•</span>
               {r}
             </li>

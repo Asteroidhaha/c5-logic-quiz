@@ -50,7 +50,7 @@ export default function ExamQuiz({ questions, onExit, onRestart }: Props) {
   if (submitted) {
     const pass = score >= 60
     return (
-      <div className="max-w-3xl mx-auto px-6 py-8">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
           <div className={`px-6 py-8 text-center ${pass ? 'bg-gradient-to-b from-emerald-50' : 'bg-gradient-to-b from-rose-50'} to-white`}>
             <Trophy size={40} className={`mx-auto mb-3 ${pass ? 'text-amber-500' : 'text-slate-400'}`} />
@@ -77,7 +77,7 @@ export default function ExamQuiz({ questions, onExit, onRestart }: Props) {
           {/* 逐题回顾 */}
           <div className="px-6 py-5 space-y-3">
             <div className="text-sm font-bold text-slate-700 mb-1">逐题回顾（点击答题卡可回看）</div>
-            <div className="grid grid-cols-10 gap-1.5 mb-4">
+            <div className="grid grid-cols-5 sm:grid-cols-10 gap-1.5 mb-4">
               {questions.map((x, i) => {
                 const ok = answers[x.id] === x.answer
                 return (
@@ -101,13 +101,13 @@ export default function ExamQuiz({ questions, onExit, onRestart }: Props) {
 
   /* ---------- 考试中 ---------- */
   return (
-    <div className="max-w-5xl mx-auto px-6 py-5 grid grid-cols-[1fr_220px] gap-5">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-5 grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-4 sm:gap-5">
       <div>
         {/* 考试信息条 */}
-        <div className="flex items-center justify-between bg-white border border-slate-200 rounded-lg px-4 py-2.5 mb-4 shadow-sm">
-          <div className="text-sm text-slate-600">
+        <div className="flex flex-wrap items-center justify-between gap-2 bg-white border border-slate-200 rounded-lg px-4 py-2.5 mb-4 shadow-sm">
+          <div className="text-sm text-slate-600 min-w-0">
             <b className="text-slate-800">C5 逻辑思维建模 · 模拟测评</b>
-            <span className="ml-3 text-xs text-slate-400">单选题 · 每题 5 分 · 答错不扣分</span>
+            <span className="ml-3 text-xs text-slate-400 hidden sm:inline">单选题 · 每题 5 分 · 答错不扣分</span>
           </div>
           <div className={`flex items-center gap-1.5 font-mono text-lg font-bold ${timeUrgent ? 'text-rose-600 animate-pulse' : 'text-slate-700'}`}>
             <Timer size={17} /> {mm}:{ss}
@@ -117,11 +117,11 @@ export default function ExamQuiz({ questions, onExit, onRestart }: Props) {
         {/* 题卡 */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm">
           <div className="px-6 pt-5 pb-4 border-b border-slate-100">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-bold text-slate-400">第 {idx + 1} 题 / 共 20 题</span>
-              <span className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${CAT_COLOR[q.cat]}`}>{q.cat}</span>
-              <span className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${DIFF_STYLE[q.diff]}`}>{q.diff}</span>
-              <SpeakButton text={questionToSpeech(q.stem, q.options, idx + 1)} className="ml-auto" />
+            <div className="flex flex-wrap items-center gap-2 mb-3">
+              <span className="text-xs font-bold text-slate-400 whitespace-nowrap">第 {idx + 1} 题 / 共 20 题</span>
+              <span className={`text-[11px] px-2 py-0.5 rounded-full font-medium whitespace-nowrap ${CAT_COLOR[q.cat]}`}>{q.cat}</span>
+              <span className={`text-[11px] px-2 py-0.5 rounded-full font-medium whitespace-nowrap ${DIFF_STYLE[q.diff]}`}>{q.diff}</span>
+              <SpeakButton text={questionToSpeech(q.stem, q.options, idx + 1)} className="ml-auto shrink-0" />
             </div>
             <h2 className="text-lg font-semibold text-slate-800 leading-relaxed">{q.stem}</h2>
           </div>
@@ -163,8 +163,8 @@ export default function ExamQuiz({ questions, onExit, onRestart }: Props) {
         </div>
       </div>
 
-      {/* 答题卡 */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 h-fit sticky top-5">
+      {/* 答题卡：移动端移至题卡下方 */}
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 h-fit lg:sticky lg:top-5">
         <div className="text-sm font-bold text-slate-700 mb-1">答题卡</div>
         <div className="text-xs text-slate-400 mb-3">已答 {answeredCount} / 20</div>
         <div className="grid grid-cols-5 gap-1.5">

@@ -35,7 +35,7 @@ export default function PracticeQuiz({ title, questions, shuffleKey, onShuffle, 
 
   if (!q) {
     return (
-      <div className="max-w-3xl mx-auto px-6 py-16 text-center">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 text-center">
         <CheckCircle2 size={44} className="mx-auto text-emerald-500 mb-3" />
         <div className="text-lg font-bold text-slate-700">{isWrongBook ? '错题全部清零，太棒了！' : '该分类下暂无题目'}</div>
         {isWrongBook && <div className="mt-1 text-sm text-slate-400">去其他分类继续练习吧</div>}
@@ -61,7 +61,7 @@ export default function PracticeQuiz({ title, questions, shuffleKey, onShuffle, 
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-6">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
       {/* 进度条 */}
       <div className="flex items-center justify-between text-sm text-slate-500 mb-2">
         <span>
